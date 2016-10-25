@@ -1,15 +1,4 @@
----
-layout: post
-title: "Restful API验证框架的设计与实现"
-date: 2015-11-15 11:34:05 +0800
-comments: true
-categories: design
----   
-
-<!--more-->   
-
-##### 标签：dubbox ,restful ,api验证   
-  
+   
 ### dubbox中api统一验证的设计与实现  
 
 API层提供restful接口，接口可能对接的不仅仅是前端平台，还可能是开放式的平台。不过无论是那种业务，提供restful的接口层都需要做数据的强校验。统一校验的优点很简单，将校验与API接口解耦，简化代码逻辑。

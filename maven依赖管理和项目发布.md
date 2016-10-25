@@ -1,17 +1,3 @@
----
-layout: post
-title: "maven依赖管理和项目发布"
-date: 2015-10-10 12:36:30 +0800
-comments: true
-categories: java
----  
-<!--more-->
-
-##### 标签： maven，jetty-maven-plugin
-
-* list element with functor item
-{:toc}
-
 
 项目中一直用maven，最近在重新搭建一个项目时遇到一些问题，趁现在有时间正好稍微做个总结。项目中maven主要用于依赖的管理和项目的部署。  
    

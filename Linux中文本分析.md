@@ -1,14 +1,3 @@
----
-layout: post
-title: "Linux中文本分析"
-date: 2015-10-30 17:43:08 +0800
-comments: true
-categories: Linux
----
-
-<!--more-->
-
-##### 标签： sed, awk  
 
 在线上分析应用日志时，常常需要统计分析，以便可以尽快的定位到问题。bash提供了awk和sed命令，可以方便的进行文本处理。
 

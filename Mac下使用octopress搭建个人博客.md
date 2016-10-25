@@ -1,20 +1,4 @@
----
-layout: post
-title: "Mac下使用octopress搭建个人博客"
-date: 2015-06-14 19:06:35 +0800
-comments: true
-categories: tools 
----  
 
-<!--more-->  
-
-##### 标签：mac，octopress，搭建个人博客  
-  
----  
-
-* list element with functor item
-{:toc}  
-  
 ###一. 先安装brew环境，按照官网。  
 
   

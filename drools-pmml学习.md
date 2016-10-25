@@ -1,18 +1,3 @@
----
-layout: post
-title: "drools-pmml学习"
-date: 2015-06-14 16:46:24 +0800
-comments: true
-categories: Framework 
----    
-
-<!--more-->
-
-##### 标签：drools-pmml， drools， pmml 
-  
----
-* list element with functor item
-{:toc}  
 
 ### 一 pmml  
 全称预言模型标记语言（Predictive Model Markup Language），利用XML描述和存储数据挖掘模型，是一个已经被W3C所接受的标准。MML是一种基于XML的语言，用来定义预言模型。  

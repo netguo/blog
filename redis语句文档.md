@@ -1,14 +1,3 @@
----
-layout: post
-title: "redis语句文档"
-date: 2015-11-03 23:58:17 +0800
-comments: true
-categories: Framework
----    
-
-<!--more-->
-
-##### 标签： redis  
 
 摘抄自redis的官网[redisdoc](http://redisdoc.com/index.html)，官网doc不方便查看，如果想看一个语句还需要点击进入子页面，摘抄一下方便工作。  
 

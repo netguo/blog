@@ -1,19 +1,3 @@
----
-layout: post
-title: "docker-容器的通讯"
-date: 2015-05-03 15:00:57 +0800
-comments: true
-categories: Linux 
----
-
-<!--more-->  
-
-##### 标签： docker , Linking Containers Together  
-
----  
-
-* list element with functor item
-{:toc}  
 
 docker实现容器之间的通信主要有两种方式：制定一个容器端口与一个本地端口相对应，通过docker的--link方式
 下面就这这种方式进行说明：

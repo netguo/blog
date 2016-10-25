@@ -1,15 +1,3 @@
----
-layout: post
-title: "科学上网-自行搭建shadowsocks服务器"
-date: 2015-08-04 23:54:55 +0800
-comments: true
-categories: tools 
----      
-
-<!--more-->
-  
-##### 标签：digitalocean,socketsocks,centos6.5  
-  
 
 #### digitalocean搭建    
 + 初次注册可以返10美元。

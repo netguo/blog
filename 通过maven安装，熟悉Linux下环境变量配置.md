@@ -1,18 +1,3 @@
----
-layout: post
-title: "通过maven安装，熟悉Linux下环境变量配置"
-date: 2015-10-09 10:10:21 +0800
-comments: true
-categories: Framework 
----   
-
-<!--more-->
-
-##### 标签： mvn , Linux环境配置  
-  
-* list element with functor item
-{:toc}  
-
 ### mvn下载    
 在mvn官网下载自己需要的版本，并解压，安装。
 http://maven.apache.org/download.cgi  

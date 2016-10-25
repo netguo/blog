@@ -1,13 +1,4 @@
----
-layout: post
-title: "Java中通过Set实现集合的去重和排序"
-date: 2015-08-05 00:26:00 +0800
-comments: true
-categories: java
---- 
-
-<!--more-->    
-
+ 
 ##### 标签：java,HashSet,TreeSet,去重,排序  
    
 java中set的实现方式主要有HashSet和TreeSet两种方式，可以理解一个是二叉树实现，一个是哈希实现。   

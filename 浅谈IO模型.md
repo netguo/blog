@@ -1,11 +1,4 @@
----
-layout: post
-title: "浅谈I/O模型"
-date: 2016-02-03 11:29:01 +0800
-comments: true
-categories: design
----    
-<!--more-->   
+
 
 ### 简谈I/O模型  
  
