@@ -14,7 +14,8 @@ ThreadLocal是在当前线程中保持一个线程中的值。之前没有仔细
 每一个线程Thread中有一个属性，如下：  
 ThreadLocal.ThreadLocalMap threadLocals = null;  
 当前线程持有一个ThreadLocal.ThreadLocalMap，此时线程栈中还有一个ThreadLocal的对象地址。  
-再看ThreadLocalMap的存储格式：  
+再看ThreadLocalMap的存储格式：    
+
 ```  
 static class ThreadLocalMap {
         static class Entry extends WeakReference<ThreadLocal> {
@@ -27,15 +28,18 @@ static class ThreadLocalMap {
             }
         }  
 }
-```
-ThreadLocalMap的存储，以ThreadLocal为Key,ThreadLocal为弱引用，在垃圾回收时必定被回收，此时Entry对应的为null,value。如果此时，如果线程不释放，那么key为null的object就不会被回收，而且key为null的将会越来越多，因为当这个线程get是，不存在变会重新为该线程创建threadlocalmap的entry实例，造成内存溢出。  
+```  
+
+ThreadLocalMap的存储，以ThreadLocal为Key,取得value。然而对于Entry来讲，ThreadLocal是弱引用，在垃圾回收时ThreadLocal会被回收，此时Entry对应的为null,value。如果此时，如果线程不释放，那么key为null的object就不会被回收，而且key为null的将会越来越多，如果value属于大对象，那么更容易造成内存泄露。因为当这个线程get是，不存在变会重新为该线程创建threadlocalmap的entry实例，造成内存溢出。    
+
 在getEntry，setEntry时会对key为null的进行回收。
 ### 源码分析：
 ThreadLocal，我们通常用的方法是，get()，set()，先看在ThreadLocal源码中对于这两个方法的实现。     
    
----  
+    ---  
 
-* _get和set的调用过程_
+* _get和set的调用过程_  
+
 ```  
  1. get过程
     public T get() {
@@ -66,7 +70,8 @@ ThreadLocal，我们通常用的方法是，get()，set()，先看在ThreadLocal
     }
     void createMap(Thread t, T firstValue) {
         t.threadLocals = new ThreadLocalMap(this, firstValue);
-    }
+    }  
+
 先获取当前线程，然后根据当前线程，获取ThreadLocalMap，可以看到getMap()方法是从当前线程获取该线程的ThreadLocal值。   
 如果当前线程获取的ThreadLocalMap为空，或者对应的值为空，返回一个初始化的value，如果map为空，初始化一个map，并赋值到该线程。  
 
@@ -87,24 +92,16 @@ ThreadLocal，我们通常用的方法是，get()，set()，先看在ThreadLocal
 可以看到每一个线程都维护这自己的一个自己的ThreadLocalMap，维护着当前线程的的变量。  
 
 ---  
-
-* _ThreadLocalMap_  
-  
-```  
-    static class ThreadLocalMap {
-
-        static class Entry extends WeakReference<ThreadLocal> {
-
-            Object value;
-
-            Entry(ThreadLocal k, Object v) {
-                super(k);
-                value = v;
-            }
-        }    
-    }
-```  
+ 
 ### 理解ThreadLocal的设计  
 首先，还是开头那句话，ThreadLocal的设计是为了提供线程内部的局部变量，可以将一个公有变量编程私有。  
-ThreadLocal本身是一个对象，本身是一个多线程共享的对象，但有自己的get，set方法，自身的get，set方法是获取、设置线程私有的对象。
-ThreadLocal内部有一个静态内部类，维护着线程私有变量的数据结构。
+
+ThreadLocal本身是一个对象，本身是一个多线程共享的对象，但有自己的get，set方法，自身的get，set方法是获取、设置线程私有的对象，也就是说，ThreadLocal本身只是一个数据结构，真正的数据是维护在线程自己内部。  
+
+ThreadLocal内部有一个静态内部类，维护着线程私有变量的数据结构。  
+
+TLS解决了这样一个需求，就是希望在一个,每个线程的线程上下文,环境下执行的任何实体（函数，组件等）内，都能访问某一个变量。 那么很明显，这个变量是需要做成全局的，但是，普通全局的会污染别的线程。所以，此时需要TLS。
+所以ThreadLocal是为了解决同一个线程中上下文共享问题。
+
+### 思考
+为什么这样设计，ThreadLocal本身是一个线程共享的对象，如果数据维护在自己的内部，那必然会有多线程问题，如果只是提供一个数据结构，具体的数据由线程自己维护。那么可以防止同步，避免并发问题。
