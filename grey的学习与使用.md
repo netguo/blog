@@ -169,7 +169,7 @@ Greys是一个C/S架构程序，所以当Client访问到Server时，Server会维
 虽然Greys能取代部分的远程DEBUG行为，但毕竟没不像DEBUG工具那样可以看到局部变量的值，而且可操作性上也没有JVM下Eclipse/IDEA等优秀的IDE自带的DEBUG工具这么人性化操作。
 
 #### 线上环境大规模部署
-与BTrace一样，Greys获取到的权限太高，如果线上大规模部署会遭受黑客的攻击，而今天我为了实现简单是没有做过多的鉴权控制。
+与BTrace一样，Greys获取到的权限太高，如果线上大规模部署会遭受黑客的攻击，实现简单是没有做过多的鉴权控制。
 
 #### JDK类库分析
 JDK的类库存放在rt.jar中，启动时加载到BootstrapClassLoader中（Hotspot-JVM），但由于Greys也是用Java语言所编写，所以自身也用到了这些基础类库，默认情况下关闭了对这些类的增强。
@@ -178,4 +178,4 @@ JDK的类库存放在rt.jar中，启动时加载到BootstrapClassLoader中（Hot
 
 其它不适合场景
 
-BTrace、HouseMD、Greys、JavOSize此类工具都会对Perm区、CodeCache（影响JIT）产生干扰，如果你的程序对这两块非常敏感，也请不要在这些场合下使用。
+BTrace、HouseMD、Greys、JavOSize此类工具都会对Perm区、CodeCache（影响JIT）产生干扰，如果程序对这两块非常敏感，也请不要在这些场合下使用。
