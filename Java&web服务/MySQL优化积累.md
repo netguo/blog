@@ -77,6 +77,9 @@ _尽早过滤_
 _尽可能的使用NOT NULL
 NULL在MySQL中也会有存储空间，Varchar可以使用EMPTY，INT可以使用0
 
+_使用ENUM而不是VARCHAR_
+ENUM 类型是非常快和紧凑的。在实际上，其保存的是TINYINT，但其外表上显示为字符串。这样一来，用这个字段来做一些选项列表变得相当的完美  
+
 _尽可能对每一条运行在数据库中的SQL进行explain_  
 这个很重要啊，在应用开发，还是优化过程中，对每一个SQL进行explain是很重要的啊
 
