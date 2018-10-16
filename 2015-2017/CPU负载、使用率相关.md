@@ -1,1 +1,0 @@
-ps -mp 2660 -o THREAD,tid,time
