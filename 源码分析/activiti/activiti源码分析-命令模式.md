@@ -1,4 +1,4 @@
-#### 一、 activiti的命令模式
+####  activiti的命令模式
 我们从一个具体的实例类看起，RepositoryServiceImpl的实例类
 [RepositoryServiceImpl的类图](./activiti/respositoryService.png)
 可以看到，RepositoryServiceImpl实现了接口RepositoryService，继承了ServiceImpl。
