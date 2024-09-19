@@ -5,11 +5,13 @@ Collection主要分为三种：List、Set、Queue，Queue是后来加入的，�
 
 ## HashTable
 所有方法都加上synchronize
+
 ## HashMap
 没有做任何同步处理
 数组+链表，1.8之后hash碰撞后，链表超过阈值8后，转化为红黑树提高查找效率（On -> Ologn）
 初始化数组大小，16，负载因子0.75，扩展采用左移一位=*2
 每一个元素采用一个Entry{ key , value , next，hash}
+
 ## SynchronizedMap
 
 ```java
@@ -19,13 +21,14 @@ public int size() {
     synchronized (mutex) {return m.size();}
 }
 ```
-
 如上所示，通过synchronized一个Object方法实现同步
+
 ## ConcurrentHashMap
 采用分段锁技术，每段采用final Segment<K,V>[] segments，segment继承了ReentrantLock，具体的put，get操作在segment中实现，put加锁，中间数据采用了volatile保证数据可见性，get操作未加锁，获取具体的entry采用CAS。
 1.8后舍弃了分段锁的实现方式，元素都存在Node数组中，每次锁住的都是一个Node对象，而不是某一段数组，所以支持写的并发度更高。再者它引入了红黑树，在hash冲突严重时，读操作效率更高。1.8扩容时，对rehash做了优化，扩容，槽数增加两倍，一个点要不在当前位置，要不在是0的话索引没变，是1的话索引变成“原索引+oldCap位置，一个标识为0、1，标志是否需要转移到原索引+oldCap位置，省去了重新hash的工作，是否在+oldCap位置通过高位与运算。
 
 #### 1.7
+
 **基本结构**
 
 ```java
@@ -225,16 +228,20 @@ Segment继承了重入锁ReentrantLock，有了锁的功能，每个锁控制的
 
 - 分段锁的优势在于保证在操作不同段 map 的时候可以并发执行，操作同段 map 的时候，进行锁的竞争和等待。这相对于直接对整个map同步synchronized是有优势的。
 - 缺点在于分成很多段时会比较浪费内存空间(不连续，碎片化); 操作map时竞争同一个分段锁的概率非常小时，分段锁反而会造成更新等操作的长时间等待; 当某个段很大时，分段锁的性能会下降。
+
 #### 为什么不用ReentrantLock而用synchronized ?
 
 - 减少内存开销:如果使用ReentrantLock则需要节点继承AQS来获得同步支持，增加内存开销，而1.8中只有头节点需要进行同步。
 - 内部优化:synchronized则是JVM直接支持的，JVM能够在运行时作出相应的优化措施：锁粗化、锁消除、锁自旋等等。
 
 ## ConcurrentSkipListMap
+
 通过跳表实现高并发下的有排序容器，并发容器不采用tree因为效率太低，所以通过跳表+Map实现
 跳表算法，的随机函数算法，可以在算法的时候学习
+
 ## Vector
 我们来看最早的这个容器Vector，内部是自带锁的，你去读它的时候就会看到很多方法synchronized二话不说先加上锁在说，所以你用Vector的时候请放心它一定是线程安全的。
+
 ## List
 ArrayList、LinkedList
 CopyOnWriteArrayList 写时复制，是用写少读多的场景
@@ -261,28 +268,42 @@ public boolean add(E e) {
     }
 }
 ```
- 
 
 ## BlockingQueue
+
 #### 概述
+
 BlockingQueue，是我们后面讲线程池需要用到的这方面的内容，是给线程池来做准备的。BlockingQueue的概念重点是在Blocking上，Blocking阻塞，Queue队列，是阻塞队列。他提供了一系列的方法，我们可以在这些方法的基础之上做到让线程实现自动的阻塞。
+
 #### 常用方法
+
 boolean offer 添加数据返回一个boolean值
 void add   添加数据失败抛出一个异常
 boolean remove 
 E pool  取数，并remove
 E take  阻塞取，取不到线程阻塞
 void put 阻塞放数据，添加不上，线程阻塞
+
 #### LinkedBlockingQueue
+
 LinkedBlockingQueue，体现Concurrent的这个点在哪里呢，我们来看这个LinkedBlockingQueue，用链表实现的BlockingQueue，是一个无界队列。就是它可以一直装到你内存满了为止，一直添加。
+
 #### ArrayBlockingQueue
+
 ArrayBlockingQueue是有界的，你可以指定它一个固定的值10，它容器就是10，那么当你往里面扔容器的时候，一旦他满了这个put方法就会阻塞住。然后你可以看看用add方法满了之后他会报异常。offer用返回值来判断到底加没加成功，offer还有另外一个写法你可以指定一个时间尝试着往里面加1秒钟，1秒钟之后如果加不进去它就返回了。
+
 #### DelayQueue
+
 DelayQueue可以实现在时间上的排序，这个DelayQueue能实现按照在里面等待的时间来进行排序。
+
 #### SynchronousQueue
+
 SynchronousQueue容量为0，就是这个东西它不是用来装内容的，SynchronousQueue是专门用来两个线程之间传内容的，给线程下达任务的。
+
 #### TransferQueue
+
 TransferQueue传递，实际上是前面这各种各样Queue的一个组合，它可以给线程来传递任务，以此同时不像是SynchronousQueue只能传递一个，TransferQueue做成列表可以传好多个。比较牛X的是它添加了一个方法叫transfer，如果我们用put就相当于一个线程来了往里一装它就走了。transfer就是装完在这等着，阻塞等有人把它取走我这个线程才回去干我自己的事情。
+
 #### 整体理解
 
 - 从Hashtable一直到这个ConcurrentHashMap，这些不是一个替代的关系，它们各自有各自的用途
