@@ -32,16 +32,16 @@ Kafka每个主题，每个分区支持多备份。kafka通过raft协议实现。
 Kafka的客户端默认提供了ByteArraySerializer,IntegerSerializer,StringSerializer，也可以实现自定义的序列化器。自定义的序列化器往往比较脆弱，容易出现兼容性问题。可以考虑开源的与语言无关的序列化框架，例如Protobuf、Avro、Thrift等。
 **分区器**
 
-| DefaultPartitioner  | UniformStickyPartitioner  | RoundRobinPartitioner |
-| --- | --- | --- |
-| 默认分区器
-- 如果消息中指定了分区，则使用。
-- 如果未指定分区但存在key，则根据序列化key使用murmur2哈希算法对分区数取模。
-- 如果不存在分区或key，则会使用粘性分区策略。
- | 纯粹的粘性分区策略，统一都用粘性分区来分配。 | 
-- 如果消息中指定了分区，则使用。
-- 将消息平均的分配到每个分区中，与key无关。
- |
+* DefaultPartitioner ：默认分区器 
+  - 如果消息中指定了分区，则使用。
+  - 如果未指定分区但存在key，则根据序列化key使用murmur2哈希算法对分区数取模。
+  - 如果不存在分区或key，则会使用粘性分区策略。 
+
+* UniformStickyPartitioner 
+  - 纯粹的粘性分区策略，统一都用粘性分区来分配。
+* RoundRobinPartitioner 
+  - 如果消息中指定了分区，则使用。
+  - 将消息平均的分配到每个分区中，与key无关。
 
 粘性分区策略：
 > 生产者在发送消息时，为了减少网络请求会先放在一个批次（ProductBatch）里，批次必须满或者到指定时间，批次才会发送。如果发送消息较少，那各个批次都不会满，意味更高的延迟。
