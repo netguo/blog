@@ -235,7 +235,8 @@ Redis提供了8种淘汰策略：
 #### 5、持久化
 Redis的持久化用于保障，机器宕机、重启等场景下，内存数据恢复。Redis是缓存数据库，保持数据的一致性不是Redis的设计初衷。Redis支持2种持久化机制，RDB（内存快照），AOF（命令的追加记录）。
 ###### RDB
-Redis Database，数据快照，把当前进程某一时刻的数据快照保存到硬盘。redis提供两个手动命令支持，save(阻塞主线程)、bgsave(不阻塞主线程)。Redis还支持被动非阻塞出发，在配置文件中配置，save m  n，m秒内数据集存在n次修改。当配置多条是，其中任一满足即可。
+Redis Database，数据快照，把当前进程某一时刻的数据快照保存到硬盘。redis提供两个手动命令支持，save(阻塞主线程)、bgsave(不阻塞主线程)。Redis还支持被动非阻塞出发，在配置文件中配置，save m  n，m秒内数据集存在n次修改。当配置多条是，其中任一满足即可。  
+
 **RDB过程**
 Redis就会借助操作系统提供的写时复制技术（Copy-On-Write,COW），在执行快照的同时，正常处理写操作。简单来说，bgsave子进程是由主线程fork生成的，可以共享主线程的所有内存数据。bgsave子进程运行后，开始读取主线程的内存数据，并把它们写入RDB文件。如果主线程对这些数据也都是读操作（例如图中的键值对A），那么，主线程和bgsave子进程相互不影响。但是，如果主线程要修改一块数据（例如图中的键值对C），那么，这块数据就会被复制一份，生成该数据的副本（键值对C’）。然后，主线程在这个数据副本上进行修改。同时，bgsave子进程可以继续把原来的数据（键值对C）写入RDB文件。
 ![image.png](https://cdn.nlark.com/yuque/0/2024/png/8364057/1712048871304-094aae94-6607-4cf6-affc-0126d8f8d980.png#averageHue=%23f4f9e9&clientId=ue5e5e5f3-54ae-4&from=paste&height=3750&id=u506d3f47&originHeight=7500&originWidth=13333&originalType=binary&ratio=2&rotation=0&showTitle=false&size=4448617&status=done&style=none&taskId=ua84bf9cd-6cf4-4873-8bef-feb0eb2a451&title=&width=6666.5)
