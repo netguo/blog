@@ -226,8 +226,10 @@ Redis提供了8种淘汰策略：
 - 在所有数据范围内进行淘汰：allkeys-lru、allkeys-random、allkeys-lfu
 
 **LRU，Least Recently Used（最近最少使用）**
+
 在Redis中，LRU算法被做了简化，以减轻数据淘汰对缓存性能的影响。具体来说，Redis默认会记录每个数据的最近一次访问的时间戳（由键值对数据结构RedisObject中的lru字段记录）。然后，Redis在决定淘汰的数据时，第一次会随机选出N个数据，把它们作为一个候选集合。接下来，Redis会比较这N个数据的lru字段，把lru字段值最小的数据从缓存中淘汰出去。如果需要淘汰，继续随机挑选N个，选出小于前个N中最小的，加入。
-**LFU，Least Frequently Used**
+**LFU，Least Frequently Used** 
+
 核心思想是根据key的最近被访问的频率进行淘汰，很少被访问的优先被淘汰，被访问的多的则被留下来。
 #### 5、持久化
 Redis的持久化用于保障，机器宕机、重启等场景下，内存数据恢复。Redis是缓存数据库，保持数据的一致性不是Redis的设计初衷。Redis支持2种持久化机制，RDB（内存快照），AOF（命令的追加记录）。
