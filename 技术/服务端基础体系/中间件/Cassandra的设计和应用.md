@@ -18,21 +18,11 @@ Cassandra起源于2007年，已经发展十几年，有活跃的开源社区。�
 ## 二、Cassandra的应用
 ### 2.1 数据模型及实践
 #### 数据类型
-| 数字数据类型 | int：32位有符号整型
-bigint：64位长整型
-smallint：16位有符号整型
-tinyint：8位有符号整型
-varint：可变精度有符号整数
-float：32位 IEEE-754 浮点型
-double：64位 IEEE-754 浮点型
-decimal：可变精度的decimal |
+|数据类型|说明|
 | --- | --- |
-| 文本数据类型 | text, varchar：UTF-8编码的字符串
-ascii：ASCII字符串 |
-| 时间和标识符数据类型 | timestamp：时间戳
-date, time：时间类型，分别表示日期和时间。
-uuid：通用唯一识别码（universally unique identifier，UUID）是128位数据类型，type 4 UUID，其实现完全是基于随机数的。
-timeuuid：这个是 Type 1 UUID，它的实现基于计算机的 MAC 地址，系统时间和用于防止重复的序列号。 |
+| 数字数据类型 |int：32位有符号整型<br>bigint：64位长整型<br>smallint：16位有符号整型<br>tinyint：8位有符号整型<br>varint：可变精度有符号整数<br>float：32位 IEEE-754 浮点型<br>double：64位 IEEE-754 浮点型<br>decimal：可变精度的decimal |
+| 文本数据类型 | text, varchar：UTF-8编码的字符串ascii：ASCII字符串 |
+| 时间和标识符数据类型 | timestamp：时间戳date<br> time：时间类型，分别表示日期和时间。<br>uuid：通用唯一识别码（universally unique identifier，UUID）是128位数据类型，type 4 UUID，其实现完全是基于随机数的。<br>timeuuid：这个是 Type 1 UUID，它的实现基于计算机的 MAC 地址，系统时间和用于防止重复的序列号。 |
 | 集合数据类型 | set、list、map |
 | 自定义数据类型 | Cassandra 中如果内置的数据类型无法满足我们的需求，我们可以使用自定义数据类型的功能。 |
 
@@ -40,8 +30,7 @@ timeuuid：这个是 Type 1 UUID，它的实现基于计算机的 MAC 地址，�
 | Keyspace | 可以类比为库的概念 |
 | --- | --- |
 | Column Family | 可以类比为表的概念，一个列族 |
-| Row  key | 一行数据的key，（(分区键,..)，聚类键,..))，查询条件需要按照键顺序查询，可类比聚合索引。
-底层物理存储是按照row key排序的。 |
+| Row  key | 一行数据的key，（(分区键,..)，聚类键,..))，查询条件需要按照键顺序查询，可类比聚合索引。<br>底层物理存储是按照row key排序的。 |
 | Column name | 列名，最大为64KB |
 | Column value | 列值 |
 
