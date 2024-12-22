@@ -92,13 +92,15 @@ Phaser它就更像是结合了CountDownLatch和CyclicBarrier，翻译一下叫�
 Phaser是按照不同的阶段来对线程进行执行，就是它本身是维护着一个阶段这样的一个成员变量，当前我是执行到那个阶段，是第0个，还是第1个阶段啊等等，每个阶段不同的时候这个线程都可以往前走，有的线程走到某个阶段就停了，有的线程一直会走到结束。你的程序中如果说用到分好几个阶段执行 ，而且有的人必须得几个人共同参与的一种情形的情况下可能会用到这个Phaser
 
 #### Semaphore
-限流，几个许个证，拿到许可证，执行，拿不到等待。
+限流，几个许个证，拿到许可证，执行，拿不到等待。  
+
 、、、
 Semaphore s = new Semaphore(permits);
 s.acquire()
 s.release();
 Semaphore s = new Semaphore(permits,fair);
 、、、
+
 #### Exchanger
 一对线程可以交换数据，threadA.exchange(sss),threadB.exchange(ccc);
 #### ThreadLocal

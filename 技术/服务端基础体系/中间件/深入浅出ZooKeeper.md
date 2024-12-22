@@ -52,7 +52,7 @@ ZooKeeper 中 Watch 机制的，大体上ZooKeeper 实现的方式是通过客�
 这种设计不但实现了一个分布式环境下的观察者模式，而且通过将客户端和服务端各自处理 Watch 事件所需要的额外信息分别保存在两端，减少彼此通信的内容，提升了服务的处理性能。
 客户端的Watch是一次性的，监听完成一个事件后会被删除，需要重新注册。Curator引入了Cache机制，实现长期的监听。
 ### 2.5 权限控制
-为了保证zookeeper中的数据的安全性，避免误操作带来的影响。Zookeeper提供了一套ACL权限控制机制来保证数据的安全。ACL机制：scheme:id:perm采来标识。Scheme（权限模式），标识授权策略；ID（授权对象）；Permission：授予的权限。
+为了保证zookeeper中的数据的安全性，避免误操作带来的影响。Zookeeper提供了一套ACL权限控制机制来保证数据的安全。ACL机制：scheme\:id:perm采来标识。Scheme（权限模式），标识授权策略；ID（授权对象）；Permission：授予的权限。
 2.5.1 Scheme 权限模式
 
 - **world:** 默认方式，相当于全部都能访问。
